@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TiendaVirtualCCModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="TiendaVirtualCCModelStoreContainer">
+    <EntitySet Name="Categorias" EntityType="TiendaVirtualCCModel.Store.Categorias" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Productos" EntityType="TiendaVirtualCCModel.Store.Productos" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CategoriasProductos" Association="TiendaVirtualCCModel.Store.CategoriasProductos">
+      <End Role="Categorias" EntitySet="Categorias" />
+      <End Role="Productos" EntitySet="Productos" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Categorias">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PathImagen" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PrecioUnidad" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Categoria_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="CategoriasProductos">
+    <End Role="Categorias" Type="TiendaVirtualCCModel.Store.Categorias" Multiplicity="1" />
+    <End Role="Productos" Type="TiendaVirtualCCModel.Store.Productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorias">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Productos">
+        <PropertyRef Name="Categoria_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TiendaVirtualCCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TiendaVirtualCCEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Categorias" EntityType="TiendaVirtualCCModel.Categorias" />
+          <EntitySet Name="Productos" EntityType="TiendaVirtualCCModel.Productos" />
+          <AssociationSet Name="CategoriasProductos" Association="TiendaVirtualCCModel.CategoriasProductos">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <NavigationProperty Name="Productos" Relationship="TiendaVirtualCCModel.CategoriasProductos" FromRole="Categorias" ToRole="Productos" />
+        </EntityType>
+        <EntityType Name="Productos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="PathImagen" Type="String" Nullable="false" />
+          <NavigationProperty Name="Categoria" Relationship="TiendaVirtualCCModel.CategoriasProductos" FromRole="Productos" ToRole="Categorias" />
+          <Property Name="PrecioUnidad" Type="Decimal" Nullable="false" DefaultValue="0" />
+        </EntityType>
+        <Association Name="CategoriasProductos">
+          <End Type="TiendaVirtualCCModel.Categorias" Role="Categorias" Multiplicity="1" />
+          <End Type="TiendaVirtualCCModel.Productos" Role="Productos" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TiendaVirtualCCModelStoreContainer" CdmEntityContainer="TiendaVirtualCCEntities">
+    <EntitySetMapping Name="Categorias">
+      <EntityTypeMapping TypeName="IsTypeOf(TiendaVirtualCCModel.Categorias)">
+        <MappingFragment StoreEntitySet="Categorias">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Productos">
+      <EntityTypeMapping TypeName="IsTypeOf(TiendaVirtualCCModel.Productos)">
+        <MappingFragment StoreEntitySet="Productos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="PathImagen" ColumnName="PathImagen" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CategoriasProductos" TypeName="TiendaVirtualCCModel.CategoriasProductos" StoreEntitySet="Productos">
+      <EndProperty Name="Categorias">
+        <ScalarProperty Name="Id" ColumnName="Categoria_Id" />
+      </EndProperty>
+      <EndProperty Name="Productos">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
