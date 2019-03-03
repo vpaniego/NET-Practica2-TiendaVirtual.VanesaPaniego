@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/03/2019 10:44:40
+-- Date Created: 03/03/2019 12:39:11
 -- Generated from EDMX file: C:\MisProyectos\NET\NET-Practica2-TiendaVirtual.VanesaPaniego\TiendaVirtual_CarritoCompra\TiendaVirtual_CarritoCompra\Models\TiendaVirtualCC.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,20 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_CategoriasProductos]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Productos] DROP CONSTRAINT [FK_CategoriasProductos];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[Categorias]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Categorias];
+GO
+IF OBJECT_ID(N'[dbo].[Productos]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Productos];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -41,7 +50,7 @@ CREATE TABLE [dbo].[Productos] (
     [Nombre] nvarchar(max)  NOT NULL,
     [Descripcion] nvarchar(max)  NOT NULL,
     [PathImagen] nvarchar(max)  NOT NULL,
-    [PrecioUnidad] nvarchar(max)  NOT NULL,
+    [PrecioUnidad] decimal(18,0)  NOT NULL,
     [Categoria_Id] int  NOT NULL
 );
 GO

@@ -29,7 +29,7 @@
     <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PathImagen" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="PrecioUnidad" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PrecioUnidad" Type="decimal" Nullable="false" DefaultValue="0" />
     <Property Name="Categoria_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="CategoriasProductos">
@@ -102,6 +102,7 @@
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="PathImagen" ColumnName="PathImagen" />
+          <ScalarProperty Name="PrecioUnidad" ColumnName="PrecioUnidad" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
