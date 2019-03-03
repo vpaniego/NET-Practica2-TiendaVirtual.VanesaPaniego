@@ -176,12 +176,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Binders\CategoriasModelBinder.cs" />
+    <Compile Include="Models\Binders\ProductosModelBinder.cs" />
     <Compile Include="Models\Categorias.cs">
       <DependentUpon>TiendaVirtualCC.tt</DependentUpon>
     </Compile>
@@ -282,9 +286,20 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Categorias\Create.cshtml" />
+    <Content Include="Views\Categorias\Delete.cshtml" />
+    <Content Include="Views\Categorias\Details.cshtml" />
+    <Content Include="Views\Categorias\Edit.cshtml" />
+    <Content Include="Views\Categorias\Index.cshtml" />
+    <Content Include="Views\Productos\Create.cshtml" />
+    <Content Include="Views\Productos\Delete.cshtml" />
+    <Content Include="Views\Productos\Details.cshtml" />
+    <Content Include="Views\Productos\Edit.cshtml" />
+    <Content Include="Views\Productos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\Initializer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
