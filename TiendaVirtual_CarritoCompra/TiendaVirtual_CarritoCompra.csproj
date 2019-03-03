@@ -176,6 +176,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CarritoCompraController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -187,8 +188,10 @@
     <Compile Include="Models\ArticuloCarrito.cs">
       <DependentUpon>TiendaVirtualCC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Binders\CarritoCompraModelBinder.cs" />
     <Compile Include="Models\Binders\CategoriasModelBinder.cs" />
     <Compile Include="Models\Binders\ProductosModelBinder.cs" />
+    <Compile Include="Models\CarritoCompra.cs" />
     <Compile Include="Models\Categorias.cs">
       <DependentUpon>TiendaVirtualCC.tt</DependentUpon>
     </Compile>
@@ -299,6 +302,7 @@
     <Content Include="Views\Productos\Details.cshtml" />
     <Content Include="Views\Productos\Edit.cshtml" />
     <Content Include="Views\Productos\Index.cshtml" />
+    <Content Include="Views\CarritoCompra\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
