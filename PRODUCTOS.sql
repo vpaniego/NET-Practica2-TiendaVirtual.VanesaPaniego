@@ -1,4 +1,4 @@
-﻿--INSERT INTO PRODUCTOS VALUES ('Cune Crianza 2015', 'Cune (CVNE) (Rioja)', 'cune-crianza.jpg', 5.59, 1);
+﻿INSERT INTO PRODUCTOS VALUES ('Cune Crianza 2015', 'Cune (CVNE) (Rioja)', 'cune-crianza.jpg', 5.59, 1);
 INSERT INTO PRODUCTOS VALUES ('Azpilicueta Crianza 2015', 'Bodegas Azpilicueta (Rioja)', 'azpilicueta-crianza.jpg', 6.60, 1);
 INSERT INTO PRODUCTOS VALUES ('Ramón Bilbao Edición Limitada 2015', 'Ramón Bilbao (Rioja)', 'ramon-bilbao-edicion-limitada.jpg', 10.64, 1);
 

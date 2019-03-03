@@ -12,21 +12,13 @@ namespace TiendaVirtual_CarritoCompra.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Productos
+    public partial class ArticuloCarrito
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Productos()
-        {
-            this.PrecioUnidad = 0m;
-        }
-    
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
-        public string PathImagen { get; set; }
-        public decimal PrecioUnidad { get; set; }
+        public int Cantidad { get; set; }
+        public string UsuarioId { get; set; }
+        public System.DateTime FechaAlta { get; set; }
     
-        public virtual Categorias Categoria { get; set; }
-        public virtual ArticuloCarrito ArticuloCarrito { get; set; }
+        public virtual Productos Productos { get; set; }
     }
 }

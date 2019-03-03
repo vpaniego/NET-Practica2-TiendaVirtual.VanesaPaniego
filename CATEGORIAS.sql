@@ -6,5 +6,5 @@ INSERT INTO CATEGORIAS VALUES ('D.O. Valdepeñas (Castilla La Mancha)','Denomina
 INSERT INTO CATEGORIAS VALUES ('D.O. Valencia (Comunidad Valenciana)','Denominación de Origen Valencia');
 INSERT INTO CATEGORIAS VALUES ('D.O. Rueda (Castilla y León)','Denominación de Origen Rueda');
 INSERT INTO CATEGORIAS VALUES ('D.O. Cariñena (Aragón)','Denominación de Origen Cariñena');
-INSERT INTO CATEGORIAS VALUES ('D.O. Cataluña (Cataluña)','Denominación de Origen Cataluña');
+INSERT INTO CATEGORIAS VALUES ('D.O.Ca Priorat (Priorat)','Denominación de Origen Calificada Priorat');
 INSERT INTO CATEGORIAS VALUES ('D.O. Navarra (Navarra)','Denominación de Origen Navarra');
