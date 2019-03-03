@@ -14,7 +14,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         // GET: CarritoCompra
         public ActionResult Index()
         {
-            return View();
+            return View(db.CarritoCompras.Find());
         }
 
         // GET: CarritoCompra
