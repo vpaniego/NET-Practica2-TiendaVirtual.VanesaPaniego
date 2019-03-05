@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="TiendaVirtualCCModel.Categorias" Width="1.5" PointX="4.25" PointY="0.5" />
         <EntityTypeShape EntityType="TiendaVirtualCCModel.Productos" Width="1.5" PointX="0.875" PointY="0.5" />
         <AssociationConnector Association="TiendaVirtualCCModel.CategoriasProductos" />
-        <EntityTypeShape EntityType="TiendaVirtualCCModel.ArticuloCarrito" Width="1.5" PointX="1.375" PointY="3.25" />
+        <EntityTypeShape EntityType="TiendaVirtualCCModel.Carrito" Width="1.5" PointX="1.375" PointY="3.25" />
         <AssociationConnector Association="TiendaVirtualCCModel.ArticuloCarritoProductos" />
       </Diagram>
     </edmx:Diagrams>

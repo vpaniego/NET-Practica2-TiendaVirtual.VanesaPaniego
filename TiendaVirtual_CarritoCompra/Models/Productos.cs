@@ -27,6 +27,6 @@ namespace TiendaVirtual_CarritoCompra.Models
         public decimal PrecioUnidad { get; set; }
     
         public virtual Categorias Categoria { get; set; }
-        public virtual ArticuloCarrito ArticuloCarrito { get; set; }
+        public virtual Carrito ArticuloCarrito { get; set; }
     }
 }

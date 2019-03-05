@@ -6,15 +6,15 @@ using System.Web.Mvc;
 
 namespace TiendaVirtual_CarritoCompra.Models.Binders
 {
-    public class CarritoCompraModelBinder : IModelBinder
+    public class CarritoModelBinder : IModelBinder
     {
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             HttpSessionStateBase session = controllerContext.HttpContext.Session;
-            CarritoCompra carrito = (CarritoCompra)session["KEY_CARRITO"];
-            if(carrito == null)
+            Carrito carrito = (Carrito)session["KEY_CARRITO"];
+            if (carrito == null)
             {
-                carrito = new CarritoCompra();
+                carrito = new Carrito();
                 session["KEY_CARRITO"] = carrito;
             }
 

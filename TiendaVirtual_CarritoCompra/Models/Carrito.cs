@@ -12,7 +12,7 @@ namespace TiendaVirtual_CarritoCompra.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ArticuloCarrito
+    public partial class Carrito
     {
         public int Id { get; set; }
         public int Cantidad { get; set; }
