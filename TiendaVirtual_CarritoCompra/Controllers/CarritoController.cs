@@ -115,6 +115,59 @@ namespace TiendaVirtual_CarritoCompra.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Carrito
+        public ActionResult Add(int id)
+        {
+            string usuarioId = getUsuarioId();
+
+            Carrito carrito = db.Carrito.SingleOrDefault(
+          c => c.UsuarioId == usuarioId
+          && c.Productos.Id == id);
+            if (carrito == null)
+            {
+                carrito = getCarrito(id, usuarioId);
+                db.Carrito.Add(carrito);
+            } else
+            {
+                carrito.Cantidad++;                
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public Carrito getCarrito(int id, string usuarioId)
+        {
+            Productos producto = db.Productos.Find(id);
+            return new Carrito
+            {
+                Productos = producto,
+                FechaAlta = DateTime.Now,
+                Cantidad = 1,
+                UsuarioId = usuarioId
+            };
+
+        }
+
+        private string getUsuarioId()
+        {
+            HttpSessionStateBase session = HttpContext.Session;
+            if (session["KEY_USER_ID"] == null)
+            {
+                if (!string.IsNullOrWhiteSpace(User.Identity.Name))
+                {
+                    session["KEY_USER_ID"] = User.Identity.Name;
+                }
+                else
+                {
+                    // Generate a new random GUID using System.Guid class.     
+                    Guid tempCartId = Guid.NewGuid();
+                    session["KEY_USER_ID"] = tempCartId.ToString();
+                }
+            }
+            return session["KEY_USER_ID"].ToString();
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
