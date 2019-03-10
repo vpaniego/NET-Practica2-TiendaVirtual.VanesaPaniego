@@ -53,7 +53,12 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @if (User.Identity.Name.Equals("admin1@correo.es"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+        <span>|</span>
+    }
+
     @Html.ActionLink("Añadir a Carrito", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Volver a la Lista", "Index")
 </p>

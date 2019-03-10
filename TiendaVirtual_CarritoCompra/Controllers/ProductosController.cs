@@ -36,6 +36,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         }
 
         // GET: Productos/Create
+        [Authorize(Users = "admin1@correo.es")]
         public ActionResult Create()
         {            
             SelectList lstCategoriasSelectList = new SelectList(db.Categorias, "Id", "Nombre");
@@ -53,6 +54,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "admin1@correo.es")]
         public ActionResult Create([Bind(Include = "Id,Nombre,Descripcion,PathImagen,ImageFile,PrecioUnidad,SelectedIdCategoria")] Productos productos)
         {
             if (ModelState.IsValid)
@@ -67,6 +69,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         }
 
         // GET: Productos/Edit/5
+        [Authorize(Users = "admin1@correo.es")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -86,6 +89,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "admin1@correo.es")]
         public ActionResult Edit([Bind(Include = "Id,Nombre,Descripcion,PathImagen,PrecioUnidad")] Productos productos)
         {
             if (ModelState.IsValid)
@@ -98,6 +102,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         }
 
         // GET: Productos/Delete/5
+        [Authorize(Users = "admin1@correo.es")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -115,6 +120,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         // POST: Productos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "admin1@correo.es")]
         public ActionResult DeleteConfirmed(int id)
         {
             Productos productos = db.Productos.Find(id);

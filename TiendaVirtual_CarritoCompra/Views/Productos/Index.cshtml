@@ -6,9 +6,12 @@
 
 <h2>Productos</h2>
 
+@if (User.Identity.Name.Equals("admin1@correo.es"))
+{
 <p>
     @Html.ActionLink("Crear Nuevo", "Create")
 </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -41,9 +44,15 @@
             @Html.DisplayFor(modelItem => item.PrecioUnidad)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+
+            @if (User.Identity.Name.Equals("admin1@correo.es"))
+            {
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id })
+                <span>|</span>
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                <span>|</span>
+            }
             @Html.ActionLink("Detalle", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }) |
             @Html.ActionLink("Añadir a Carrito", "Add", "Carrito", new { id = item.Id }, null)
         </td>
     </tr>
