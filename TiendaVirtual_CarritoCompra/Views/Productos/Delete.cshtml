@@ -32,7 +32,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PathImagen)
+            <img src="@Url.Content("~/Content/Images/" + @Path.GetFileName(@Model.PathImagen))" width="150" height="150" />
         </dd>
 
         <dt>

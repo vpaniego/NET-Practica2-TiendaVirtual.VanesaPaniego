@@ -37,19 +37,27 @@ namespace TiendaVirtual_CarritoCompra.Controllers
 
         // GET: Productos/Create
         public ActionResult Create()
-        {
-            return View();
-        }
+        {            
+            SelectList lstCategoriasSelectList = new SelectList(db.Categorias, "Id", "Nombre");
 
+            Productos producto = new Productos
+            {
+                SelectListCategorias = lstCategoriasSelectList
+            };
+
+            return View(producto);
+        }
+        
         // POST: Productos/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nombre,Descripcion,PathImagen,PrecioUnidad")] Productos productos)
+        public ActionResult Create([Bind(Include = "Id,Nombre,Descripcion,PathImagen,ImageFile,PrecioUnidad,SelectedIdCategoria")] Productos productos)
         {
             if (ModelState.IsValid)
             {
+                productos.Categoria = db.Categorias.Find(productos.SelectedIdCategoria);
                 db.Productos.Add(productos);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -123,5 +131,6 @@ namespace TiendaVirtual_CarritoCompra.Controllers
             }
             base.Dispose(disposing);
         }
-    }
+
+     }
 }

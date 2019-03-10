@@ -31,7 +31,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PathImagen)
+            <img src="@Url.Content("~/Content/Images/" + @Path.GetFileName(@Model.PathImagen))" width="150" height="150" />
         </dd>
 
         <dt>
@@ -40,6 +40,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.PrecioUnidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categoria.Nombre)
         </dd>
 
     </dl>
