@@ -12,6 +12,7 @@ namespace TiendaVirtual_CarritoCompra.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web;
     using System.Web.Mvc;
 
     public partial class Productos
@@ -36,7 +37,9 @@ namespace TiendaVirtual_CarritoCompra.Models
         [Display(Name = "Imagen Producto")]        
         public string PathImagen { get; set; }
 
-        public HttpPostedFileBaseModelBinder ImageFile { get; set; }
+        [Required(ErrorMessage = "Por favor seleccione una imagen.")]
+        [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.jpg)$", ErrorMessage = "Únicamente ficheros con extensión .jpg sin permitidos.")]
+        public HttpPostedFileBase ImageFile { get; set; }
         
         [Required]
         [Display(Name = "Precio Unidad (€)")]

@@ -55,7 +55,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Users = "admin1@correo.es")]
-        public ActionResult Create([Bind(Include = "Id,Nombre,Descripcion,PathImagen,ImageFile,PrecioUnidad,SelectedIdCategoria")] Productos productos)
+        public ActionResult Create([Bind(Include = "Id,Nombre,Descripcion,PathImagen,ImageFile,PrecioUnidad,SelectedIdCategoria")] Productos productos, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {

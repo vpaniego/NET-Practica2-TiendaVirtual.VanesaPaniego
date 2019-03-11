@@ -7,7 +7,7 @@
 <h2>Crear</h2>
 
 @*Html.BeginForm("Create", "Productos", FormMethod.Post, new { enctype = "multipart / form - data"})*@
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Productos", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -42,8 +42,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PathImagen, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-               <input type="file" name="ImageFile" />
+                <input type="file" name="ImageFile" />
                 @*@Html.EditorFor(model => model.PathImagen, new { htmlAttributes = new { @class = "form-control" } })*@
+                @*@Html.TextBoxFor(model => model.ImageFile, new { type = "file" })*@
                 @Html.ValidationMessageFor(model => model.PathImagen, "", new { @class = "text-danger" })
             </div>
         </div>
