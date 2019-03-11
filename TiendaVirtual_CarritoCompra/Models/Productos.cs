@@ -40,8 +40,9 @@ namespace TiendaVirtual_CarritoCompra.Models
         //[RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.jpg)$", ErrorMessage = "Únicamente ficheros con extensión .jpg")]
         public string PathImagen { get; set; }
 
+        [DataType(DataType.Currency)]        
         [Required]
-        [Display(Name = "Precio Unidad (€)")]
+        [Display(Name = "Precio Unidad")]        
         public decimal PrecioUnidad { get; set; }
         
         [Display(Name = "Categoría")]        
