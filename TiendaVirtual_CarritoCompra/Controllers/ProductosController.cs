@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -36,20 +37,51 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         }
 
         // GET: Productos/Create
+        [Authorize(Users = "admin1@correo.es")]
         public ActionResult Create()
-        {
-            return View();
-        }
+        {            
+            SelectList lstCategoriasSelectList = new SelectList(db.Categorias, "Id", "Nombre");
 
+            Productos producto = new Productos
+            {
+                SelectListCategorias = lstCategoriasSelectList
+            };
+
+            return View(producto);
+        }
+        
         // POST: Productos/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nombre,Descripcion,PathImagen,PrecioUnidad")] Productos productos)
+        [Authorize(Users = "admin1@correo.es")]
+        public ActionResult Create([Bind(Include = "Id,Nombre,Descripcion,PathImagen,PrecioUnidad,SelectedIdCategoria")] Productos productos)
         {
             if (ModelState.IsValid)
             {
+                try
+                {
+                    if (Request.Files.Count > 0)
+                    {
+                        var file = Request.Files[0];
+                        if (file != null && file.ContentLength > 0)
+                        {
+                            var fileName = Path.GetFileName(file.FileName);
+                            var path = Path.Combine(Server.MapPath("~/Content/Images"), fileName);
+                            file.SaveAs(path);
+                            productos.PathImagen = fileName;
+                            ViewBag.FileStatus = "Imagen subida correctamente.";
+                        }
+
+                    }
+                    
+                }
+                catch (Exception)
+                {
+                    ViewBag.FileStatus = "Error mientras se subía el fichero."; ;
+                }
+                productos.Categoria = db.Categorias.Find(productos.SelectedIdCategoria);                
                 db.Productos.Add(productos);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -59,6 +91,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         }
 
         // GET: Productos/Edit/5
+        [Authorize(Users = "admin1@correo.es")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,6 +111,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "admin1@correo.es")]
         public ActionResult Edit([Bind(Include = "Id,Nombre,Descripcion,PathImagen,PrecioUnidad")] Productos productos)
         {
             if (ModelState.IsValid)
@@ -90,6 +124,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         }
 
         // GET: Productos/Delete/5
+        [Authorize(Users = "admin1@correo.es")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,6 +142,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         // POST: Productos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Users = "admin1@correo.es")]
         public ActionResult DeleteConfirmed(int id)
         {
             Productos productos = db.Productos.Find(id);
@@ -123,5 +159,6 @@ namespace TiendaVirtual_CarritoCompra.Controllers
             }
             base.Dispose(disposing);
         }
-    }
+
+     }
 }
