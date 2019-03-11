@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -55,11 +56,32 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Users = "admin1@correo.es")]
-        public ActionResult Create([Bind(Include = "Id,Nombre,Descripcion,PathImagen,ImageFile,PrecioUnidad,SelectedIdCategoria")] Productos productos, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "Id,Nombre,Descripcion,PathImagen,PrecioUnidad,SelectedIdCategoria")] Productos productos)
         {
             if (ModelState.IsValid)
             {
-                productos.Categoria = db.Categorias.Find(productos.SelectedIdCategoria);
+                try
+                {
+                    if (Request.Files.Count > 0)
+                    {
+                        var file = Request.Files[0];
+                        if (file != null && file.ContentLength > 0)
+                        {
+                            var fileName = Path.GetFileName(file.FileName);
+                            var path = Path.Combine(Server.MapPath("~/Content/Images"), fileName);
+                            file.SaveAs(path);
+                            productos.PathImagen = fileName;
+                            ViewBag.FileStatus = "Imagen subida correctamente.";
+                        }
+
+                    }
+                    
+                }
+                catch (Exception)
+                {
+                    ViewBag.FileStatus = "Error mientras se subía el fichero."; ;
+                }
+                productos.Categoria = db.Categorias.Find(productos.SelectedIdCategoria);                
                 db.Productos.Add(productos);
                 db.SaveChanges();
                 return RedirectToAction("Index");

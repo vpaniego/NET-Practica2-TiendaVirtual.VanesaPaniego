@@ -34,23 +34,21 @@ namespace TiendaVirtual_CarritoCompra.Models
         [MaxLength(150, ErrorMessage = "Descripción demasiada larga. Máximo permitido 150 caracteres")]        
         public string Descripcion { get; set; }
 
-        [Display(Name = "Imagen Producto")]        
+        [DataType(DataType.Upload)]
+        [Required(ErrorMessage = "Por favor seleccione una imagen.")]
+        [Display(Name = "Imagen Producto")]
+        //[RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.jpg)$", ErrorMessage = "Únicamente ficheros con extensión .jpg")]
         public string PathImagen { get; set; }
 
-        [Required(ErrorMessage = "Por favor seleccione una imagen.")]
-        [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.jpg)$", ErrorMessage = "Únicamente ficheros con extensión .jpg sin permitidos.")]
-        public HttpPostedFileBase ImageFile { get; set; }
-        
         [Required]
         [Display(Name = "Precio Unidad (€)")]
         public decimal PrecioUnidad { get; set; }
-
-        [Required]
+        
         [Display(Name = "Categoría")]        
         public virtual Categorias Categoria { get; set; }
 
-        public int SelectedIdCategoria { get; set; }
-        //public IEnumerable<SelectListItem> SelectListCategorias { get; set; }
+        [Required(ErrorMessage = "Por favor seleccione una categoría.")]
+        public int SelectedIdCategoria { get; set; } 
         public SelectList SelectListCategorias { get; set; }
 
         public virtual Carrito ArticuloCarrito { get; set; }
