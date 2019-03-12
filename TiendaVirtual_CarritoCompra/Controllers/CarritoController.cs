@@ -17,7 +17,9 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         // GET: Carrito
         public ActionResult Index()
         {
-            return View(db.Carrito.ToList());
+            //return View(db.Carrito.ToList());            
+
+            return View((List<Carrito>)HttpContext.Session["CARRITO"]);
         }
 
         // GET: Carrito/Details/5
@@ -116,16 +118,16 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         }
 
         // GET: Carrito
-        public ActionResult Add(int id)
+        public ActionResult AddEF(int id)
         {
-            string usuarioId = getUsuarioId();
+            string usuarioId = GetUsuarioId();
 
             Carrito carrito = db.Carrito.SingleOrDefault(
           c => c.UsuarioId == usuarioId
           && c.Productos.Id == id);
             if (carrito == null)
             {
-                carrito = getCarrito(id, usuarioId);
+                carrito = GetCarrito(id, usuarioId);
                 db.Carrito.Add(carrito);
             } else
             {
@@ -135,12 +137,43 @@ namespace TiendaVirtual_CarritoCompra.Controllers
             return RedirectToAction("Index");
         }
 
-        public Carrito getCarrito(int id, string usuarioId)
+        // GET: Carrito
+        public ActionResult Add(int id)
         {
-            Productos producto = db.Productos.Find(id);
+            HttpSessionStateBase session = HttpContext.Session;
+
+            string usuarioId = GetUsuarioId();
+            Carrito carrito = GetCarrito(id, usuarioId);
+
+            if (session["CARRITO"] == null)
+            {                
+                List<Carrito> carritoCompra = new List<Carrito>();
+                carritoCompra.Add(carrito);
+                session["CARRITO"] = carritoCompra;
+            }
+            else
+            {
+                List<Carrito> carritoCompra = (List<Carrito>)session["CARRITO"];
+                int index = ExisteProductoEnCarrito(id);
+                if (index != -1)
+                {
+                    carritoCompra[index].Cantidad++;
+                }
+                else
+                {
+                    carritoCompra.Add(carrito);
+                }
+                session["CARRITO"] = carritoCompra;
+            }
+            return RedirectToAction("Index");
+        }
+
+        public Carrito GetCarrito(int id, string usuarioId)
+        {
             return new Carrito
             {
-                Productos = producto,
+                Productos = db.Productos.SingleOrDefault(
+           p => p.Id == id),
                 FechaAlta = DateTime.Now,
                 Cantidad = 1,
                 UsuarioId = usuarioId
@@ -148,7 +181,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
 
         }
 
-        private string getUsuarioId()
+        private string GetUsuarioId()
         {
             HttpSessionStateBase session = HttpContext.Session;
             if (session["KEY_USER_ID"] == null)
@@ -165,6 +198,17 @@ namespace TiendaVirtual_CarritoCompra.Controllers
                 }
             }
             return session["KEY_USER_ID"].ToString();
+        }
+
+        private int ExisteProductoEnCarrito(int id)
+        {
+            HttpSessionStateBase session = HttpContext.Session;
+            List<Carrito> carritoCompra = (List<Carrito>)session["CARRITO"];
+            for (int i = 0; i < carritoCompra.Count; i++) {
+                if (carritoCompra[i].Productos.Id.Equals(id))
+                    return i;
+            }                
+            return -1;
         }
 
 
