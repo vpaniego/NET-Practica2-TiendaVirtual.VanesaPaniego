@@ -15,14 +15,14 @@ namespace TiendaVirtual_CarritoCompra.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Sancho callaba y comía bellotas, y visitaba muy a menudo el segundo zaque(odre pequeño) que, porque se enfriase el vino, le tenía colgado de un alcornoque.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Puede contactar con nosotros en la dirección:";
 
             return View();
         }

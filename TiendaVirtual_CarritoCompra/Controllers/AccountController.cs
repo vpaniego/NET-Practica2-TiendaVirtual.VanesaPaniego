@@ -69,7 +69,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
-            {
+            {              
                 return View(model);
             }
 
@@ -392,7 +392,23 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+
+            RemoveCarrito(HttpContext.Session);
+            
             return RedirectToAction("Index", "Home");
+        }
+
+        private void RemoveCarrito(HttpSessionStateBase session)
+        {            
+            if (session["KEY_USER_ID"] != null)
+            {
+                session["KEY_USER_ID"] = null;
+            }
+
+            if (session["CARRITO"] != null)
+            {
+                session["CARRITO"] = null;
+            }
         }
 
         //
@@ -445,6 +461,8 @@ namespace TiendaVirtual_CarritoCompra.Controllers
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
+            RemoveCarrito(HttpContext.Session);
+
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);

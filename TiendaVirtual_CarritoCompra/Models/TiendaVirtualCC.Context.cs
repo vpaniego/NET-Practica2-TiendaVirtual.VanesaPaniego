@@ -27,5 +27,6 @@ namespace TiendaVirtual_CarritoCompra.Models
     
         public virtual DbSet<Categorias> Categorias { get; set; }
         public virtual DbSet<Productos> Productos { get; set; }
+        public virtual DbSet<Carrito> Carrito { get; set; }
     }
 }
