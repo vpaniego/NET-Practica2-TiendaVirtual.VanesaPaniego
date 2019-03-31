@@ -22,16 +22,16 @@ namespace TiendaVirtual_CarritoCompra.Models
         {
             this.PrecioUnidad = 0m;
         }
-    
+
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(50, ErrorMessage = "Nombre demasido largo. Máximo permitido 50 caracteres")]       
+        [MaxLength(50, ErrorMessage = "Nombre demasido largo. Máximo permitido 50 caracteres")]
         public string Nombre { get; set; }
-        
+
         [Required]
         [Display(Name = "Descripción")]
-        [MaxLength(150, ErrorMessage = "Descripción demasiada larga. Máximo permitido 150 caracteres")]        
+        [MaxLength(150, ErrorMessage = "Descripción demasiada larga. Máximo permitido 150 caracteres")]
         public string Descripcion { get; set; }
 
         [DataType(DataType.Upload)]
@@ -40,16 +40,16 @@ namespace TiendaVirtual_CarritoCompra.Models
         //[RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.jpg)$", ErrorMessage = "Únicamente ficheros con extensión .jpg")]
         public string PathImagen { get; set; }
 
-        [DataType(DataType.Currency)]        
+        [DataType(DataType.Currency)]
         [Required]
-        [Display(Name = "Precio Unidad")]        
+        [Display(Name = "Precio Unidad")]
         public decimal PrecioUnidad { get; set; }
-        
-        [Display(Name = "Categoría")]        
+
+        [Display(Name = "Categoría")]
         public virtual Categorias Categoria { get; set; }
 
         [Required(ErrorMessage = "Por favor seleccione una categoría.")]
-        public int SelectedIdCategoria { get; set; } 
+        public int SelectedIdCategoria { get; set; }
         public SelectList SelectListCategorias { get; set; }
 
         public virtual Carrito ArticuloCarrito { get; set; }

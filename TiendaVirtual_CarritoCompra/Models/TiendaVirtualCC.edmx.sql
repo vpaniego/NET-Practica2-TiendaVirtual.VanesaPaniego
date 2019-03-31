@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/05/2019 23:36:19
+-- Date Created: 03/31/2019 18:52:21
 -- Generated from EDMX file: C:\MisProyectos\NET\NET-Practica2-TiendaVirtual.VanesaPaniego\TiendaVirtual_CarritoCompra\TiendaVirtual_CarritoCompra\Models\TiendaVirtualCC.edmx
 -- --------------------------------------------------
 
@@ -67,6 +67,7 @@ CREATE TABLE [dbo].[Carrito] (
     [Cantidad] int  NOT NULL,
     [UsuarioId] nvarchar(max)  NOT NULL,
     [FechaAlta] datetime  NOT NULL,
+    [PrecioTotal] decimal(18,0)  NOT NULL,
     [Productos_Id] int  NOT NULL
 );
 GO

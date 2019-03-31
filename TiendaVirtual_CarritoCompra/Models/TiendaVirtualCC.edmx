@@ -45,6 +45,7 @@
     <Property Name="Cantidad" Type="int" Nullable="false" />
     <Property Name="UsuarioId" Type="nvarchar(max)" Nullable="false" />
     <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+    <Property Name="PrecioTotal" Type="decimal" Nullable="false" />
     <Property Name="Productos_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="CategoriasProductos">
@@ -122,6 +123,7 @@
           <Property Name="UsuarioId" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Productos" Relationship="TiendaVirtualCCModel.ArticuloCarritoProductos" FromRole="ArticuloCarrito" ToRole="Productos" />
+          <Property Name="PrecioTotal" Type="Decimal" Nullable="false" />
         </EntityType>
         <Association Name="ArticuloCarritoProductos">
           <End Type="TiendaVirtualCCModel.Carrito" Role="ArticuloCarrito" Multiplicity="0..1" />
@@ -160,6 +162,7 @@
           <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
           <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
           <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+          <ScalarProperty Name="PrecioTotal" ColumnName="PrecioTotal" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

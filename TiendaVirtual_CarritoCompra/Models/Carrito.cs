@@ -18,6 +18,7 @@ namespace TiendaVirtual_CarritoCompra.Models
         public int Cantidad { get; set; }
         public string UsuarioId { get; set; }
         public System.DateTime FechaAlta { get; set; }
+        public decimal PrecioTotal { get; set; }
     
         public virtual Productos Productos { get; set; }
     }
