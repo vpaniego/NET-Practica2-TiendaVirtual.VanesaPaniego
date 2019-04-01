@@ -1,27 +1,39 @@
 ﻿@model IEnumerable<TiendaVirtual_CarritoCompra.Models.Carrito>
 
 @{
-    ViewBag.Title = "Carrito";
-    var IsCarritoEmpty = Session["CARRITO"] == null;
+                /**/
+
+                ViewBag.Title = "Carrito";
+                var IsCarritoEmpty = Session["CARRITO"] == null;
 }
 <h2>Su Carrito de la Compra</h2>
 
 @if (IsCarritoEmpty)
 {
     <h3>No tiene artículos en su carrito de la compra</h3>
-} 
+}
 @if (!IsCarritoEmpty)
 {
+    <p>
+        @Html.ActionLink("Tramitar Pedido", "Tramitar", "Pedido", null)
+    </p>
+
     <table class="table">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.UsuarioId)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Productos.PathImagen)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Productos.Nombre)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioTotal)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FechaAlta)
@@ -35,22 +47,58 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.UsuarioId)
                 </td>
-                <th>
-                    @Html.DisplayFor(model => item.Productos.Nombre)
-                </th>
+                <td>
+                    <img src="@Url.Content("~/Content/Images/" + @Path.GetFileName(item.Productos.PathImagen))" width="75" height="75" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Productos.Nombre)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Cantidad)
                 </td>
                 <td>
-                    s
+                    @Html.DisplayFor(modelItem => item.PrecioTotal)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.FechaAlta)
                 </td>
                 <td>
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Productos.Id }) |
                     @Html.ActionLink("Volver a la Lista", "Index", "Productos")
                 </td>
             </tr>
         }
 
     </table>
+
+    <hr />
+
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                Total de productos:
+            </dt>
+
+            <dd>
+                @((ViewBag.TotalProductos).ToString("C2"))
+            </dd>
+
+            <dt>
+                Gastos de envío:
+            </dt>
+
+            <dd>
+                0,00 €
+            </dd>
+
+            <dt>
+                TOTAL:
+            </dt>
+
+            <dd>
+                @((ViewBag.TotalProductos).ToString("C2"))
+            </dd>
+
+        </dl>
+    </div>
 }

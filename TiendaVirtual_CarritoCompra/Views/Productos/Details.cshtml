@@ -59,6 +59,6 @@
         <span>|</span>
     }
 
-    @Html.ActionLink("Añadir a Carrito", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Añadir a Carrito", "Add", "Carrito", new { id = Model.Id }, null) |
     @Html.ActionLink("Volver a la Lista", "Index")
 </p>

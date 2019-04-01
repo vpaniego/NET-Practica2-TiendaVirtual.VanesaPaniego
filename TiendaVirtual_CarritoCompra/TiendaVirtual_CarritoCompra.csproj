@@ -223,10 +223,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\chivite-expresion-tempranillo.jpg" />
+    <Content Include="Content\Images\fluidos-vino.jpg" />
     <Content Include="Content\Images\negre-de-negres.jpg" />
     <Content Include="Content\Images\pata-negra-valdepenas-crianza.jpg" />
     <Content Include="Content\Images\piedemonte-cabernet-sauvignon-crianza-navarra.jpg" />
     <Content Include="Content\Images\ramon-bilbao-edicion-limitada.jpg" />
+    <Content Include="Content\Images\uvas-vinedo.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
