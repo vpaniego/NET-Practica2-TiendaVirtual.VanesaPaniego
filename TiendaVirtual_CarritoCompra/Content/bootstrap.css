@@ -4900,8 +4900,10 @@ a.badge:focus {
   padding-top: 30px;
   padding-bottom: 30px;
   margin-bottom: 30px;
-  color: inherit;
+  color: azure;
   background-color: #fafafa;
+  background-image: url(/Content/Images/fluidos-vino.jpg);
+  background-size: cover;
 }
 .jumbotron h1,
 .jumbotron .h1 {
