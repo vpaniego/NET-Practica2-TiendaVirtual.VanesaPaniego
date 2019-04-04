@@ -11,10 +11,10 @@ namespace TiendaVirtual_CarritoCompra.Models.Binders
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             HttpSessionStateBase session = controllerContext.HttpContext.Session;
-            Carrito carrito = (Carrito)session["KEY_CARRITO"];
+            CarritoCompra carrito = (CarritoCompra)session["KEY_CARRITO"];
             if (carrito == null)
             {
-                carrito = new Carrito();
+                carrito = new CarritoCompra();
                 session["KEY_CARRITO"] = carrito;
             }
 

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/31/2019 18:52:21
+-- Date Created: 04/04/2019 11:00:02
 -- Generated from EDMX file: C:\MisProyectos\NET\NET-Practica2-TiendaVirtual.VanesaPaniego\TiendaVirtual_CarritoCompra\TiendaVirtual_CarritoCompra\Models\TiendaVirtualCC.edmx
 -- --------------------------------------------------
 
@@ -20,9 +20,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CategoriasProductos]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Productos] DROP CONSTRAINT [FK_CategoriasProductos];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ArticuloCarritoProductos]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Carrito] DROP CONSTRAINT [FK_ArticuloCarritoProductos];
-GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -33,9 +30,6 @@ IF OBJECT_ID(N'[dbo].[Categorias]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Productos]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Productos];
-GO
-IF OBJECT_ID(N'[dbo].[Carrito]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Carrito];
 GO
 
 -- --------------------------------------------------
@@ -57,17 +51,33 @@ CREATE TABLE [dbo].[Productos] (
     [Descripcion] nvarchar(max)  NOT NULL,
     [PathImagen] nvarchar(max)  NOT NULL,
     [PrecioUnidad] decimal(18,0)  NOT NULL,
+    [Cantidad] nvarchar(max)  NOT NULL,
     [Categoria_Id] int  NOT NULL
 );
 GO
 
--- Creating table 'Carrito'
-CREATE TABLE [dbo].[Carrito] (
+-- Creating table 'Pedidos'
+CREATE TABLE [dbo].[Pedidos] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Cantidad] int  NOT NULL,
     [UsuarioId] nvarchar(max)  NOT NULL,
-    [FechaAlta] datetime  NOT NULL,
-    [PrecioTotal] decimal(18,0)  NOT NULL,
+    [Fecha] nvarchar(max)  NOT NULL,
+    [Cantidad] int  NOT NULL,
+    [Total] decimal(18,0)  NOT NULL,
+    [Facturas_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'Facturas'
+CREATE TABLE [dbo].[Facturas] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [UsuarioId] nvarchar(max)  NOT NULL,
+    [Importe] decimal(18,0)  NOT NULL
+);
+GO
+
+-- Creating table 'Stocks'
+CREATE TABLE [dbo].[Stocks] (
+    [Id] int IDENTITY(1,1) NOT NULL,
     [Productos_Id] int  NOT NULL
 );
 GO
@@ -88,9 +98,21 @@ ADD CONSTRAINT [PK_Productos]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Carrito'
-ALTER TABLE [dbo].[Carrito]
-ADD CONSTRAINT [PK_Carrito]
+-- Creating primary key on [Id] in table 'Pedidos'
+ALTER TABLE [dbo].[Pedidos]
+ADD CONSTRAINT [PK_Pedidos]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Facturas'
+ALTER TABLE [dbo].[Facturas]
+ADD CONSTRAINT [PK_Facturas]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Stocks'
+ALTER TABLE [dbo].[Stocks]
+ADD CONSTRAINT [PK_Stocks]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -113,19 +135,34 @@ ON [dbo].[Productos]
     ([Categoria_Id]);
 GO
 
--- Creating foreign key on [Productos_Id] in table 'Carrito'
-ALTER TABLE [dbo].[Carrito]
-ADD CONSTRAINT [FK_ArticuloCarritoProductos]
+-- Creating foreign key on [Productos_Id] in table 'Stocks'
+ALTER TABLE [dbo].[Stocks]
+ADD CONSTRAINT [FK_StockProductos]
     FOREIGN KEY ([Productos_Id])
     REFERENCES [dbo].[Productos]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_ArticuloCarritoProductos'
-CREATE INDEX [IX_FK_ArticuloCarritoProductos]
-ON [dbo].[Carrito]
+-- Creating non-clustered index for FOREIGN KEY 'FK_StockProductos'
+CREATE INDEX [IX_FK_StockProductos]
+ON [dbo].[Stocks]
     ([Productos_Id]);
+GO
+
+-- Creating foreign key on [Facturas_Id] in table 'Pedidos'
+ALTER TABLE [dbo].[Pedidos]
+ADD CONSTRAINT [FK_PedidosFacturas]
+    FOREIGN KEY ([Facturas_Id])
+    REFERENCES [dbo].[Facturas]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PedidosFacturas'
+CREATE INDEX [IX_FK_PedidosFacturas]
+ON [dbo].[Pedidos]
+    ([Facturas_Id]);
 GO
 
 -- --------------------------------------------------

@@ -188,15 +188,22 @@
     <Compile Include="Models\Binders\CarritoModelBinder.cs" />
     <Compile Include="Models\Binders\CategoriasModelBinder.cs" />
     <Compile Include="Models\Binders\ProductosModelBinder.cs" />
-    <Compile Include="Models\Carrito.cs">
+    <Compile Include="Models\CarritoCompra.cs" />
+    <Compile Include="Models\Categorias.cs">
       <DependentUpon>TiendaVirtualCC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Categorias.cs">
+    <Compile Include="Models\Facturas.cs">
       <DependentUpon>TiendaVirtualCC.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Pedidos.cs">
+      <DependentUpon>TiendaVirtualCC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Productos.cs">
+      <DependentUpon>TiendaVirtualCC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Stocks.cs">
       <DependentUpon>TiendaVirtualCC.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TiendaVirtualCC.Context.cs">

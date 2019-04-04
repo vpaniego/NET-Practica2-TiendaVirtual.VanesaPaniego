@@ -22,7 +22,7 @@ namespace TiendaVirtual_CarritoCompra.Models
         {
             this.PrecioUnidad = 0m;
         }
-
+    
         public int Id { get; set; }
 
         [Required]
@@ -37,13 +37,15 @@ namespace TiendaVirtual_CarritoCompra.Models
         [DataType(DataType.Upload)]
         [Required(ErrorMessage = "Por favor seleccione una imagen.")]
         [Display(Name = "Imagen Producto")]
-        //[RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.jpg)$", ErrorMessage = "Únicamente ficheros con extensión .jpg")]
         public string PathImagen { get; set; }
 
         [DataType(DataType.Currency)]
         [Required]
         [Display(Name = "Precio Unidad")]
         public decimal PrecioUnidad { get; set; }
+
+        [Range(0, 100)]
+        public string Cantidad { get; set; }
 
         [Display(Name = "Categoría")]
         public virtual Categorias Categoria { get; set; }
@@ -52,6 +54,6 @@ namespace TiendaVirtual_CarritoCompra.Models
         public int SelectedIdCategoria { get; set; }
         public SelectList SelectListCategorias { get; set; }
 
-        public virtual Carrito ArticuloCarrito { get; set; }
+        public virtual Stocks Stock { get; set; }
     }
 }

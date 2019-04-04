@@ -12,14 +12,14 @@ namespace TiendaVirtual_CarritoCompra.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Carrito
+    public partial class Pedidos
     {
         public int Id { get; set; }
-        public int Cantidad { get; set; }
         public string UsuarioId { get; set; }
-        public System.DateTime FechaAlta { get; set; }
-        public decimal PrecioTotal { get; set; }
+        public string Fecha { get; set; }
+        public int Cantidad { get; set; }
+        public decimal Total { get; set; }
     
-        public virtual Productos Productos { get; set; }
+        public virtual Facturas Facturas { get; set; }
     }
 }

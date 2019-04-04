@@ -5,11 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="11e21c317a52405a80338aae6c328563" Name="Diagram1" >
-        <EntityTypeShape EntityType="TiendaVirtualCCModel.Categorias" Width="1.5" PointX="4.25" PointY="0.5" />
+        <EntityTypeShape EntityType="TiendaVirtualCCModel.Categorias" Width="1.5" PointX="0.875" PointY="3.75" />
         <EntityTypeShape EntityType="TiendaVirtualCCModel.Productos" Width="1.5" PointX="0.875" PointY="0.5" />
         <AssociationConnector Association="TiendaVirtualCCModel.CategoriasProductos" />
-        <EntityTypeShape EntityType="TiendaVirtualCCModel.Carrito" Width="1.5" PointX="1.375" PointY="3.25" />
-        <AssociationConnector Association="TiendaVirtualCCModel.ArticuloCarritoProductos" />
+        <EntityTypeShape EntityType="TiendaVirtualCCModel.Pedidos" Width="1.5" PointX="3.25" PointY="3.375" />
+        <EntityTypeShape EntityType="TiendaVirtualCCModel.Facturas" Width="1.5" PointX="5.75" PointY="3.25" />
+        <EntityTypeShape EntityType="TiendaVirtualCCModel.Stocks" Width="1.5" PointX="3.125" PointY="1.375" />
+        <AssociationConnector Association="TiendaVirtualCCModel.StockProductos" />
+        <AssociationConnector Association="TiendaVirtualCCModel.PedidosFacturas" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

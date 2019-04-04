@@ -8,14 +8,20 @@
   <EntityContainer Name="TiendaVirtualCCModelStoreContainer">
     <EntitySet Name="Categorias" EntityType="TiendaVirtualCCModel.Store.Categorias" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Productos" EntityType="TiendaVirtualCCModel.Store.Productos" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Carrito" EntityType="TiendaVirtualCCModel.Store.Carrito" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Pedidos" EntityType="TiendaVirtualCCModel.Store.Pedidos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Facturas" EntityType="TiendaVirtualCCModel.Store.Facturas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Stocks" EntityType="TiendaVirtualCCModel.Store.Stocks" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CategoriasProductos" Association="TiendaVirtualCCModel.Store.CategoriasProductos">
       <End Role="Categorias" EntitySet="Categorias" />
       <End Role="Productos" EntitySet="Productos" />
     </AssociationSet>
-    <AssociationSet Name="ArticuloCarritoProductos" Association="TiendaVirtualCCModel.Store.ArticuloCarritoProductos">
-      <End Role="ArticuloCarrito" EntitySet="Carrito" />
+    <AssociationSet Name="StockProductos" Association="TiendaVirtualCCModel.Store.StockProductos">
+      <End Role="Stock" EntitySet="Stocks" />
       <End Role="Productos" EntitySet="Productos" />
+    </AssociationSet>
+    <AssociationSet Name="PedidosFacturas" Association="TiendaVirtualCCModel.Store.PedidosFacturas">
+      <End Role="Pedidos" EntitySet="Pedidos" />
+      <End Role="Facturas" EntitySet="Facturas" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Categorias">
@@ -35,17 +41,33 @@
     <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PathImagen" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PrecioUnidad" Type="decimal" Nullable="false" DefaultValue="0" Precision="18" Scale="0" />
+    <Property Name="Cantidad" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Categoria_Id" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="Carrito">
+  <EntityType Name="Pedidos">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Cantidad" Type="int" Nullable="false" />
     <Property Name="UsuarioId" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="FechaAlta" Type="datetime" Nullable="false" />
-    <Property Name="PrecioTotal" Type="decimal" Nullable="false" />
+    <Property Name="Fecha" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="Total" Type="decimal" Nullable="false" />
+    <Property Name="Facturas_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Facturas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsuarioId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Importe" Type="decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Stocks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Productos_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="CategoriasProductos">
@@ -60,15 +82,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="ArticuloCarritoProductos">
-    <End Role="ArticuloCarrito" Type="TiendaVirtualCCModel.Store.Carrito" Multiplicity="*" />
+  <Association Name="StockProductos">
+    <End Role="Stock" Type="TiendaVirtualCCModel.Store.Stocks" Multiplicity="*" />
     <End Role="Productos" Type="TiendaVirtualCCModel.Store.Productos" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="Productos">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="ArticuloCarrito">
+      <Dependent Role="Stock">
         <PropertyRef Name="Productos_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PedidosFacturas">
+    <End Role="Pedidos" Type="TiendaVirtualCCModel.Store.Pedidos" Multiplicity="*" />
+    <End Role="Facturas" Type="TiendaVirtualCCModel.Store.Facturas" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Facturas">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Pedidos">
+        <PropertyRef Name="Facturas_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -83,10 +117,16 @@
             <End Role="Categorias" EntitySet="Categorias" />
             <End Role="Productos" EntitySet="Productos" />
           </AssociationSet>
-          <EntitySet Name="Carrito" EntityType="TiendaVirtualCCModel.Carrito" />
-          <AssociationSet Name="ArticuloCarritoProductos" Association="TiendaVirtualCCModel.ArticuloCarritoProductos">
-            <End Role="ArticuloCarrito" EntitySet="Carrito" />
+          <EntitySet Name="Pedidos" EntityType="TiendaVirtualCCModel.Pedidos" />
+          <EntitySet Name="Facturas" EntityType="TiendaVirtualCCModel.Facturas" />
+          <EntitySet Name="Stocks" EntityType="TiendaVirtualCCModel.Stocks" />
+          <AssociationSet Name="StockProductos" Association="TiendaVirtualCCModel.StockProductos">
+            <End Role="Stock" EntitySet="Stocks" />
             <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
+          <AssociationSet Name="PedidosFacturas" Association="TiendaVirtualCCModel.PedidosFacturas">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="Facturas" EntitySet="Facturas" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Categorias">
@@ -108,26 +148,47 @@
           <Property Name="PathImagen" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Categoria" Relationship="TiendaVirtualCCModel.CategoriasProductos" FromRole="Productos" ToRole="Categorias" />
           <Property Name="PrecioUnidad" Type="Decimal" Nullable="false" DefaultValue="0" Precision="18" Scale="0" />
-          <NavigationProperty Name="ArticuloCarrito" Relationship="TiendaVirtualCCModel.ArticuloCarritoProductos" FromRole="Productos" ToRole="ArticuloCarrito" />
+          <Property Name="Cantidad" Type="String" Nullable="false" />
+          <NavigationProperty Name="Stock" Relationship="TiendaVirtualCCModel.StockProductos" FromRole="Productos" ToRole="Stock" />
         </EntityType>
         <Association Name="CategoriasProductos">
           <End Type="TiendaVirtualCCModel.Categorias" Role="Categorias" Multiplicity="1" />
           <End Type="TiendaVirtualCCModel.Productos" Role="Productos" Multiplicity="*" />
         </Association>
-        <EntityType Name="Carrito">
+        <EntityType Name="Pedidos">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioId" Type="String" Nullable="false" />
+          <Property Name="Fecha" Type="String" Nullable="false" />
           <Property Name="Cantidad" Type="Int32" Nullable="false" />
-          <Property Name="UsuarioId" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Productos" Relationship="TiendaVirtualCCModel.ArticuloCarritoProductos" FromRole="ArticuloCarrito" ToRole="Productos" />
-          <Property Name="PrecioTotal" Type="Decimal" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="Facturas" Relationship="TiendaVirtualCCModel.PedidosFacturas" FromRole="Pedidos" ToRole="Facturas" />
         </EntityType>
-        <Association Name="ArticuloCarritoProductos">
-          <End Type="TiendaVirtualCCModel.Carrito" Role="ArticuloCarrito" Multiplicity="0..1" />
+        <EntityType Name="Facturas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioId" Type="String" Nullable="false" />
+          <Property Name="Importe" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="Pedido" Relationship="TiendaVirtualCCModel.PedidosFacturas" FromRole="Facturas" ToRole="Pedidos" />
+        </EntityType>
+        <EntityType Name="Stocks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Productos" Relationship="TiendaVirtualCCModel.StockProductos" FromRole="Stock" ToRole="Productos" />
+        </EntityType>
+        <Association Name="StockProductos">
+          <End Type="TiendaVirtualCCModel.Stocks" Role="Stock" Multiplicity="0..1" />
           <End Type="TiendaVirtualCCModel.Productos" Role="Productos" Multiplicity="1" />
+        </Association>
+        <Association Name="PedidosFacturas">
+          <End Type="TiendaVirtualCCModel.Pedidos" Role="Pedidos" Multiplicity="1" />
+          <End Type="TiendaVirtualCCModel.Facturas" Role="Facturas" Multiplicity="1" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -152,17 +213,34 @@
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="PathImagen" ColumnName="PathImagen" />
           <ScalarProperty Name="PrecioUnidad" ColumnName="PrecioUnidad" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Carrito">
-      <EntityTypeMapping TypeName="IsTypeOf(TiendaVirtualCCModel.Carrito)">
-        <MappingFragment StoreEntitySet="Carrito">
+    <EntitySetMapping Name="Pedidos">
+      <EntityTypeMapping TypeName="IsTypeOf(TiendaVirtualCCModel.Pedidos)">
+        <MappingFragment StoreEntitySet="Pedidos">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
           <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
-          <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
-          <ScalarProperty Name="PrecioTotal" ColumnName="PrecioTotal" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Facturas">
+      <EntityTypeMapping TypeName="IsTypeOf(TiendaVirtualCCModel.Facturas)">
+        <MappingFragment StoreEntitySet="Facturas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+          <ScalarProperty Name="Importe" ColumnName="Importe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stocks">
+      <EntityTypeMapping TypeName="IsTypeOf(TiendaVirtualCCModel.Stocks)">
+        <MappingFragment StoreEntitySet="Stocks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -174,11 +252,19 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ArticuloCarritoProductos" TypeName="TiendaVirtualCCModel.ArticuloCarritoProductos" StoreEntitySet="Carrito">
+    <AssociationSetMapping Name="StockProductos" TypeName="TiendaVirtualCCModel.StockProductos" StoreEntitySet="Stocks">
       <EndProperty Name="Productos">
         <ScalarProperty Name="Id" ColumnName="Productos_Id" />
       </EndProperty>
-      <EndProperty Name="ArticuloCarrito">
+      <EndProperty Name="Stock">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PedidosFacturas" TypeName="TiendaVirtualCCModel.PedidosFacturas" StoreEntitySet="Pedidos">
+      <EndProperty Name="Facturas">
+        <ScalarProperty Name="Id" ColumnName="Facturas_Id" />
+      </EndProperty>
+      <EndProperty Name="Pedidos">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

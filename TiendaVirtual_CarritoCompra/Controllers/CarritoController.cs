@@ -14,12 +14,12 @@ namespace TiendaVirtual_CarritoCompra.Controllers
     {
         private TiendaVirtualCCEntities db = new TiendaVirtualCCEntities();
 
-        // GET: Carrito
+        // GET: CarritoCompra
         public ActionResult Index()
         {
 
             ViewBag.TotalProductos = SumaTotalProductosCarrito();
-            return View((List<Carrito>)HttpContext.Session["CARRITO"]);
+            return View((List<CarritoCompra>)HttpContext.Session["CARRITO"]);
         }
 
         // GET: Carrito/Delete/5
@@ -30,9 +30,9 @@ namespace TiendaVirtual_CarritoCompra.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            List<Carrito> carritoCompra = (List<Carrito>)HttpContext.Session["CARRITO"];
+            List<CarritoCompra> carritoCompra = (List<CarritoCompra>)HttpContext.Session["CARRITO"];
             int index = ExisteProductoEnCarrito(id);
-            Carrito carrito = carritoCompra[index];
+            CarritoCompra carrito = carritoCompra[index];
 
             if (carrito == null)
             {
@@ -46,9 +46,9 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            List<Carrito> carritoCompra = (List<Carrito>)HttpContext.Session["CARRITO"];
+            List<CarritoCompra> carritoCompra = (List<CarritoCompra>)HttpContext.Session["CARRITO"];
             int index = ExisteProductoEnCarrito(id);
-            Carrito carrito = carritoCompra[index];
+            CarritoCompra carrito = carritoCompra[index];
             carritoCompra.Remove(carrito);
             if (carritoCompra.Any())
             {
@@ -68,17 +68,17 @@ namespace TiendaVirtual_CarritoCompra.Controllers
             HttpSessionStateBase session = HttpContext.Session;
 
             string usuarioId = GetUsuarioId();
-            Carrito carrito = GetCarrito(id, usuarioId);
+            CarritoCompra carrito = GetCarrito(id, usuarioId);
 
             if (session["CARRITO"] == null)
             {
-                List<Carrito> carritoCompra = new List<Carrito>();
+                List<CarritoCompra> carritoCompra = new List<CarritoCompra>();
                 carritoCompra.Add(carrito);
                 session["CARRITO"] = carritoCompra;
             }
             else
             {
-                List<Carrito> carritoCompra = (List<Carrito>)session["CARRITO"];
+                List<CarritoCompra> carritoCompra = (List<CarritoCompra>)session["CARRITO"];
                 int index = ExisteProductoEnCarrito(id);
                 if (index != -1)
                 {
@@ -94,14 +94,14 @@ namespace TiendaVirtual_CarritoCompra.Controllers
             return RedirectToAction("Index");
         }
 
-        public Carrito GetCarrito(int id, string usuarioId)
+        public CarritoCompra GetCarrito(int id, string usuarioId)
         {
             Random random = new Random();
             int idCarrito = random.Next(1, 1000);
 
             Productos producto = db.Productos.SingleOrDefault(
            p => p.Id == id);
-            return new Carrito
+            return new CarritoCompra
             {
                 Productos = producto,
                 Id = idCarrito,
@@ -135,7 +135,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         private int ExisteProductoEnCarrito(int? id)
         {
             HttpSessionStateBase session = HttpContext.Session;
-            List<Carrito> carritoCompra = (List<Carrito>)session["CARRITO"];
+            List<CarritoCompra> carritoCompra = (List<CarritoCompra>)session["CARRITO"];
             for (int i = 0; i < carritoCompra.Count; i++)
             {
                 if (carritoCompra[i].Productos.Id.Equals(id))
@@ -148,7 +148,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         {
             HttpSessionStateBase session = HttpContext.Session;
             decimal totalSuma = 0;
-            List<Carrito> carritoCompra = (List<Carrito>)session["CARRITO"];
+            List<CarritoCompra> carritoCompra = (List<CarritoCompra>)session["CARRITO"];
             for (int i = 0; carritoCompra != null && i < carritoCompra.Count; i++)
             {
                 totalSuma = totalSuma + carritoCompra[i].PrecioTotal;
