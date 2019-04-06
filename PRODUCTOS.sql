@@ -7,7 +7,7 @@ INSERT INTO PRODUCTOS VALUES ('Robert J. Mur Reserva Brut', 'Robert J. Mur (Cava
 INSERT INTO PRODUCTOS VALUES ('Agusti Torello Mata Brut Nature Gran Reserva 2011', 'Agustí Torelló Mata (Cava)', 'agusti-torello-mata-brut-nature-gran-reserva.jpg', 13.24, 15, 2);
 
 INSERT INTO PRODUCTOS VALUES ('Alaya Tierra 2016', 'Bodegas Atalaya (Almansa)', 'alaya-tierra.jpg', 21.84, 6, 3);
-INSERT INTO PRODUCTOS VALUES ('Secua 2013', 'Finca La Estacada (VT Castilla)', 'secua.jpg', 15.55, 3);
+INSERT INTO PRODUCTOS VALUES ('Secua 2013', 'Finca La Estacada (VT Castilla)', 'secua.jpg', 15.55, 33, 3);
 INSERT INTO PRODUCTOS VALUES ('Montalvo Wilmot Syrah 2016', 'Bodegas Montalvo Wilmot (VT Castilla)', 'montalvo-wilmot-syrah.jpg', 6.44, 28, 3);
 
 INSERT INTO PRODUCTOS VALUES ('Balbás 2017', 'Bodegas Balbás (Ribera del Duero)', 'balbas.jpg', 10.33, 7, 4);
