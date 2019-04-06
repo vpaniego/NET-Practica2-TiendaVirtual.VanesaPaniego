@@ -16,7 +16,7 @@ namespace TiendaVirtual_CarritoCompra.Models
     {
         public int Id { get; set; }
         public string UsuarioId { get; set; }
-        public string Fecha { get; set; }
+        public System.DateTime Fecha { get; set; }
         public int Cantidad { get; set; }
         public decimal Total { get; set; }
     

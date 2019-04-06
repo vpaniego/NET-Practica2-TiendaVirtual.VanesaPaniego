@@ -22,7 +22,7 @@ namespace TiendaVirtual_CarritoCompra.Models
         {
             this.PrecioUnidad = 0m;
         }
-    
+
         public int Id { get; set; }
 
         [Required]

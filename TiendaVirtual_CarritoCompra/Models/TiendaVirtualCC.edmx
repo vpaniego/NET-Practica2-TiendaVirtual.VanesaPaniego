@@ -50,7 +50,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UsuarioId" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Fecha" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
     <Property Name="Cantidad" Type="int" Nullable="false" />
     <Property Name="Total" Type="decimal" Nullable="false" />
     <Property Name="Facturas_Id" Type="int" Nullable="false" />
@@ -161,7 +161,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UsuarioId" Type="String" Nullable="false" />
-          <Property Name="Fecha" Type="String" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" />
           <Property Name="Cantidad" Type="Int32" Nullable="false" />
           <Property Name="Total" Type="Decimal" Nullable="false" />
           <NavigationProperty Name="Facturas" Relationship="TiendaVirtualCCModel.PedidosFacturas" FromRole="Pedidos" ToRole="Facturas" />

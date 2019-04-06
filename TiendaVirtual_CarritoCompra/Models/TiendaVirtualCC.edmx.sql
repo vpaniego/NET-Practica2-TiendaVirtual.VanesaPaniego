@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/04/2019 11:00:02
+-- Date Created: 04/06/2019 18:22:57
 -- Generated from EDMX file: C:\MisProyectos\NET\NET-Practica2-TiendaVirtual.VanesaPaniego\TiendaVirtual_CarritoCompra\TiendaVirtual_CarritoCompra\Models\TiendaVirtualCC.edmx
 -- --------------------------------------------------
 
@@ -20,6 +20,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CategoriasProductos]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Productos] DROP CONSTRAINT [FK_CategoriasProductos];
 GO
+IF OBJECT_ID(N'[dbo].[FK_StockProductos]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Stocks] DROP CONSTRAINT [FK_StockProductos];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PedidosFacturas]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Pedidos] DROP CONSTRAINT [FK_PedidosFacturas];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -30,6 +36,15 @@ IF OBJECT_ID(N'[dbo].[Categorias]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Productos]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Productos];
+GO
+IF OBJECT_ID(N'[dbo].[Pedidos]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Pedidos];
+GO
+IF OBJECT_ID(N'[dbo].[Facturas]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Facturas];
+GO
+IF OBJECT_ID(N'[dbo].[Stocks]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Stocks];
 GO
 
 -- --------------------------------------------------
@@ -60,7 +75,7 @@ GO
 CREATE TABLE [dbo].[Pedidos] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [UsuarioId] nvarchar(max)  NOT NULL,
-    [Fecha] nvarchar(max)  NOT NULL,
+    [Fecha] datetime  NOT NULL,
     [Cantidad] int  NOT NULL,
     [Total] decimal(18,0)  NOT NULL,
     [Facturas_Id] int  NOT NULL
