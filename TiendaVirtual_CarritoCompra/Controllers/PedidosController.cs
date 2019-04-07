@@ -41,7 +41,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         {
             List<CarritoCompra> carrito = (List<CarritoCompra>)HttpContext.Session["CARRITO"];
 
-            int cantidad = carrito.Count;
+            int cantidad = SumaTotalCantidadCarrito(carrito);
             decimal totalProductos = SumaTotalProductosCarrito(carrito);
             string userId = HttpContext.Session["KEY_USER_ID"].ToString();
 
@@ -57,7 +57,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
             db.SaveChanges();
 
             return RedirectToAction("Index");
-        }
+        } 
 
         // GET: Pedidos/Cancel/5
         public ActionResult Cancel(int? id)
@@ -93,6 +93,16 @@ namespace TiendaVirtual_CarritoCompra.Controllers
                 totalSuma = totalSuma + carritoCompra[i].PrecioTotal;
             }
             return totalSuma;
+        }
+
+        private int SumaTotalCantidadCarrito(List<CarritoCompra> carritoCompra)
+        {
+            int totalCantidad = 0;
+            for (int i = 0; carritoCompra != null && i < carritoCompra.Count; i++)
+            {
+                totalCantidad = totalCantidad + carritoCompra[i].Cantidad;
+            }
+            return totalCantidad;
         }
 
         protected override void Dispose(bool disposing)
