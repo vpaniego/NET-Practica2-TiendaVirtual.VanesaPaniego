@@ -346,7 +346,6 @@
     <Content Include="Views\Carrito\Details.cshtml" />
     <Content Include="Views\Carrito\Index.cshtml" />
     <Content Include="Views\Pedidos\Cancel.cshtml" />
-    <Content Include="Views\Pedidos\Details.cshtml" />
     <Content Include="Views\Pedidos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
