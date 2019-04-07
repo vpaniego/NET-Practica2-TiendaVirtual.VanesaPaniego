@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace TiendaVirtual_CarritoCompra.Models.Binders
 {
-    public class PedidoModelBinder : IModelBinder
+    public class PedidosModelBinder : IModelBinder
     {
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {

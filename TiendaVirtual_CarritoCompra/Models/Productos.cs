@@ -55,5 +55,6 @@ namespace TiendaVirtual_CarritoCompra.Models
         public SelectList SelectListCategorias { get; set; }
 
         public virtual Stocks Stock { get; set; }
+
     }
 }

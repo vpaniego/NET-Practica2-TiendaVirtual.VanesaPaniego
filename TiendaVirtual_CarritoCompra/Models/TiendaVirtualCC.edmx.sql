@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/06/2019 18:22:57
+-- Date Created: 04/07/2019 12:10:38
 -- Generated from EDMX file: C:\MisProyectos\NET\NET-Practica2-TiendaVirtual.VanesaPaniego\TiendaVirtual_CarritoCompra\TiendaVirtual_CarritoCompra\Models\TiendaVirtualCC.edmx
 -- --------------------------------------------------
 
@@ -77,8 +77,7 @@ CREATE TABLE [dbo].[Pedidos] (
     [UsuarioId] nvarchar(max)  NOT NULL,
     [Fecha] datetime  NOT NULL,
     [Cantidad] int  NOT NULL,
-    [Total] decimal(18,0)  NOT NULL,
-    [Facturas_Id] int  NOT NULL
+    [Total] decimal(18,0)  NOT NULL
 );
 GO
 
@@ -86,7 +85,8 @@ GO
 CREATE TABLE [dbo].[Facturas] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [UsuarioId] nvarchar(max)  NOT NULL,
-    [Importe] decimal(18,0)  NOT NULL
+    [Importe] decimal(18,0)  NOT NULL,
+    [Pedido_Id] int  NOT NULL
 );
 GO
 
@@ -165,19 +165,19 @@ ON [dbo].[Stocks]
     ([Productos_Id]);
 GO
 
--- Creating foreign key on [Facturas_Id] in table 'Pedidos'
-ALTER TABLE [dbo].[Pedidos]
+-- Creating foreign key on [Pedido_Id] in table 'Facturas'
+ALTER TABLE [dbo].[Facturas]
 ADD CONSTRAINT [FK_PedidosFacturas]
-    FOREIGN KEY ([Facturas_Id])
-    REFERENCES [dbo].[Facturas]
+    FOREIGN KEY ([Pedido_Id])
+    REFERENCES [dbo].[Pedidos]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_PedidosFacturas'
 CREATE INDEX [IX_FK_PedidosFacturas]
-ON [dbo].[Pedidos]
-    ([Facturas_Id]);
+ON [dbo].[Facturas]
+    ([Pedido_Id]);
 GO
 
 -- --------------------------------------------------

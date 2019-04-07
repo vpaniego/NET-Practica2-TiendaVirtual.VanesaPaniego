@@ -34,8 +34,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
                 Cantidad = cantidad,
                 Fecha = DateTime.Now,
                 Total = totalProductos,
-                UsuarioId = userId,
-                Facturas = GenerarFacura(totalProductos, userId)
+                UsuarioId = userId
             };
 
             db.Pedidos.Add(pedido);
@@ -65,11 +64,31 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         public ActionResult CancelConfirmed(int id)
         {            
             Pedidos pedidos = db.Pedidos.Find(id);
-            Facturas facturas = db.Facturas.Find(pedidos.Facturas.Id);
-            db.Facturas.Remove(facturas);
             db.Pedidos.Remove(pedidos);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: Pedidos/Continue/5
+        public ActionResult Continue(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pedidos pedidos = db.Pedidos.Find(id);
+            if (pedidos == null)
+            {
+                return HttpNotFound();
+            }
+            Facturas factura = new Facturas {
+                Importe = pedidos.Total,
+                UsuarioId = pedidos.UsuarioId,
+                Pedido = pedidos
+            };
+            pedidos.Facturas = factura;
+            db.SaveChanges();
+            return View(pedidos);
         }
 
         private decimal SumaTotalProductosCarrito(List<CarritoCompra> carritoCompra)

@@ -37,8 +37,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Total)
         </td>
-        <td>               
-            @Html.ActionLink("Cancelar", "Cancel", new { id=item.Id })
+        <td>
+            @Html.ActionLink("Cancelar", "Cancel", new { id = item.Id }) |
+            @Html.ActionLink("Continuar", "Continue", new { id = item.Id })
         </td>
     </tr>
 }

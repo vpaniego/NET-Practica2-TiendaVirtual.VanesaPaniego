@@ -53,7 +53,6 @@
     <Property Name="Fecha" Type="datetime" Nullable="false" />
     <Property Name="Cantidad" Type="int" Nullable="false" />
     <Property Name="Total" Type="decimal" Nullable="false" />
-    <Property Name="Facturas_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Facturas">
     <Key>
@@ -62,6 +61,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UsuarioId" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Importe" Type="decimal" Nullable="false" />
+    <Property Name="Pedido_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Stocks">
     <Key>
@@ -95,14 +95,14 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="PedidosFacturas">
-    <End Role="Pedidos" Type="TiendaVirtualCCModel.Store.Pedidos" Multiplicity="*" />
-    <End Role="Facturas" Type="TiendaVirtualCCModel.Store.Facturas" Multiplicity="1" />
+    <End Role="Pedidos" Type="TiendaVirtualCCModel.Store.Pedidos" Multiplicity="1" />
+    <End Role="Facturas" Type="TiendaVirtualCCModel.Store.Facturas" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Facturas">
+      <Principal Role="Pedidos">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Pedidos">
-        <PropertyRef Name="Facturas_Id" />
+      <Dependent Role="Facturas">
+        <PropertyRef Name="Pedido_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -188,7 +188,7 @@
         </Association>
         <Association Name="PedidosFacturas">
           <End Type="TiendaVirtualCCModel.Pedidos" Role="Pedidos" Multiplicity="1" />
-          <End Type="TiendaVirtualCCModel.Facturas" Role="Facturas" Multiplicity="1" />
+          <End Type="TiendaVirtualCCModel.Facturas" Role="Facturas" Multiplicity="0..1" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -260,11 +260,11 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="PedidosFacturas" TypeName="TiendaVirtualCCModel.PedidosFacturas" StoreEntitySet="Pedidos">
-      <EndProperty Name="Facturas">
-        <ScalarProperty Name="Id" ColumnName="Facturas_Id" />
-      </EndProperty>
+    <AssociationSetMapping Name="PedidosFacturas" TypeName="TiendaVirtualCCModel.PedidosFacturas" StoreEntitySet="Facturas">
       <EndProperty Name="Pedidos">
+        <ScalarProperty Name="Id" ColumnName="Pedido_Id" />
+      </EndProperty>
+      <EndProperty Name="Facturas">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

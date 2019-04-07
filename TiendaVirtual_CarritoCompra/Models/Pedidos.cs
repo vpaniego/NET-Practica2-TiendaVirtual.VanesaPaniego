@@ -16,10 +16,15 @@ namespace TiendaVirtual_CarritoCompra.Models
     public partial class Pedidos
     {
         public int Id { get; set; }
+
         [Display(Name = "Cliente")]
         public string UsuarioId { get; set; }
+
         public System.DateTime Fecha { get; set; }
         public int Cantidad { get; set; }
+
+        [DataType(DataType.Currency)]
+        [Display(Name = "Precio Total Pedido")]
         public decimal Total { get; set; }
     
         public virtual Facturas Facturas { get; set; }
