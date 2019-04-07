@@ -22,6 +22,23 @@ namespace TiendaVirtual_CarritoCompra.Controllers
             return View((List<CarritoCompra>)HttpContext.Session["CARRITO"]);
         }
 
+        // GET: Carrito/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            List<CarritoCompra> carritoCompra = (List<CarritoCompra>)HttpContext.Session["CARRITO"];
+            int index = ExisteProductoEnCarrito(id);
+            CarritoCompra carrito = carritoCompra[index];
+            if (carrito == null)
+            {
+                return HttpNotFound();
+            }
+            return View(carrito);
+        }
+
         // GET: Carrito/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -29,17 +46,16 @@ namespace TiendaVirtual_CarritoCompra.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             List<CarritoCompra> carritoCompra = (List<CarritoCompra>)HttpContext.Session["CARRITO"];
             int index = ExisteProductoEnCarrito(id);
             CarritoCompra carrito = carritoCompra[index];
-
             if (carrito == null)
             {
                 return HttpNotFound();
             }
             return View(carrito);
         }
+
 
         // POST: Carrito/Delete/5
         [HttpPost, ActionName("Delete")]
