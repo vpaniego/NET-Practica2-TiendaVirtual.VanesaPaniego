@@ -45,6 +45,7 @@ namespace TiendaVirtual_CarritoCompra.Models
         public decimal PrecioUnidad { get; set; }
 
         [Range(0, 100)]
+        [Required]
         public string Cantidad { get; set; }
 
         [Display(Name = "Categoría")]
