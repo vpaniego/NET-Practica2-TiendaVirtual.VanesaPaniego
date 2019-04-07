@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/07/2019 12:10:38
+-- Date Created: 04/07/2019 21:10:52
 -- Generated from EDMX file: C:\MisProyectos\NET\NET-Practica2-TiendaVirtual.VanesaPaniego\TiendaVirtual_CarritoCompra\TiendaVirtual_CarritoCompra\Models\TiendaVirtualCC.edmx
 -- --------------------------------------------------
 
@@ -24,7 +24,7 @@ IF OBJECT_ID(N'[dbo].[FK_StockProductos]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Stocks] DROP CONSTRAINT [FK_StockProductos];
 GO
 IF OBJECT_ID(N'[dbo].[FK_PedidosFacturas]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Pedidos] DROP CONSTRAINT [FK_PedidosFacturas];
+    ALTER TABLE [dbo].[Facturas] DROP CONSTRAINT [FK_PedidosFacturas];
 GO
 
 -- --------------------------------------------------
@@ -66,7 +66,7 @@ CREATE TABLE [dbo].[Productos] (
     [Descripcion] nvarchar(max)  NOT NULL,
     [PathImagen] nvarchar(max)  NOT NULL,
     [PrecioUnidad] decimal(18,0)  NOT NULL,
-    [Cantidad] nvarchar(max)  NOT NULL,
+    [Cantidad] int  NOT NULL,
     [Categoria_Id] int  NOT NULL
 );
 GO

@@ -20,7 +20,7 @@ namespace TiendaVirtual_CarritoCompra.Models
         {
             this.Productos = new HashSet<Productos>();
         }
-    
+
         public int Id { get; set; }
 
         [Required]
@@ -30,7 +30,7 @@ namespace TiendaVirtual_CarritoCompra.Models
         [Display(Name = "Descripción")]
         [MaxLength(150, ErrorMessage = "Descripción demasiada larga. Máximo permitido 150 caracteres")]
         public string Descripcion { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Productos> Productos { get; set; }
     }

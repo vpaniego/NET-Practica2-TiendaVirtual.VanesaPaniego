@@ -14,6 +14,8 @@ namespace TiendaVirtual_CarritoCompra.Controllers
     {
         private TiendaVirtualCCEntities db = new TiendaVirtualCCEntities();
 
+        private const int minCantidad = 2;
+
         // GET: CarritoCompra
         public ActionResult Index()
         {
@@ -65,6 +67,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
             List<CarritoCompra> carritoCompra = (List<CarritoCompra>)HttpContext.Session["CARRITO"];
             int index = ExisteProductoEnCarrito(id);
             CarritoCompra carrito = carritoCompra[index];
+            UpdateStockProductoRemoveCarrito(carrito);
             carritoCompra.Remove(carrito);
             if (carritoCompra.Any())
             {
@@ -73,7 +76,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
             else
             {
                 HttpContext.Session["CARRITO"] = null;
-            }
+            }           
 
             return RedirectToAction("Index");
         }
@@ -107,16 +110,44 @@ namespace TiendaVirtual_CarritoCompra.Controllers
                 }
                 session["CARRITO"] = carritoCompra;
             }
+
+            UpdateStockProductoAddCarrito(id);
+
             return RedirectToAction("Index");
+        }
+
+        private void UpdateStockProductoAddCarrito(int id)
+        {
+            Productos productos = GetProductoById(id);
+            productos.Cantidad = productos.Cantidad - 1;
+            if (productos.Cantidad.Equals(minCantidad)) {
+                Stocks stocks = new Stocks {
+                    Productos = productos
+                };                
+                db.Stocks.Add(stocks);
+                productos.Stock = stocks;
+            }
+            db.SaveChanges();
+        }
+
+        private void UpdateStockProductoRemoveCarrito(CarritoCompra carrito)
+        {
+            Productos productos = GetProductoById(carrito.Productos.Id);
+            productos.Cantidad = productos.Cantidad + carrito.Cantidad;
+            if (productos.Stock != null && productos.Cantidad > minCantidad)
+            {                
+                db.Stocks.Remove(productos.Stock);
+                productos.Stock = null;
+            }
+            db.SaveChanges();
         }
 
         public CarritoCompra GetCarrito(int id, string usuarioId)
         {
             Random random = new Random();
             int idCarrito = random.Next(1, 1000);
-
-            Productos producto = db.Productos.SingleOrDefault(
-           p => p.Id == id);
+            
+            Productos producto = GetProductoById(id);
             return new CarritoCompra
             {
                 Productos = producto,
@@ -127,6 +158,12 @@ namespace TiendaVirtual_CarritoCompra.Controllers
                 PrecioTotal = producto.PrecioUnidad * 1
             };
 
+        }
+
+        private Productos GetProductoById(int id)
+        {
+            return db.Productos.SingleOrDefault(
+           p => p.Id == id);
         }
 
         private string GetUsuarioId()

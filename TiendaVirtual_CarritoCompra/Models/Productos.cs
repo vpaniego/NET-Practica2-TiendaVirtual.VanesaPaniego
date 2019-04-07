@@ -26,7 +26,7 @@ namespace TiendaVirtual_CarritoCompra.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(50, ErrorMessage = "Nombre demasido largo. Máximo permitido 50 caracteres")]
+        [MaxLength(50, ErrorMessage = "Nombre demasiado largo. Máximo permitido 50 caracteres")]
         public string Nombre { get; set; }
 
         [Required]
@@ -46,7 +46,7 @@ namespace TiendaVirtual_CarritoCompra.Models
 
         [Range(0, 100)]
         [Required]
-        public string Cantidad { get; set; }
+        public int Cantidad { get; set; }
 
         [Display(Name = "Categoría")]
         public virtual Categorias Categoria { get; set; }
@@ -56,6 +56,5 @@ namespace TiendaVirtual_CarritoCompra.Models
         public SelectList SelectListCategorias { get; set; }
 
         public virtual Stocks Stock { get; set; }
-
     }
 }
