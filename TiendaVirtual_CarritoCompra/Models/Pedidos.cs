@@ -26,7 +26,7 @@ namespace TiendaVirtual_CarritoCompra.Models
         [DataType(DataType.Currency)]
         [Display(Name = "Precio Total Pedido")]
         public decimal Total { get; set; }
-    
+
         public virtual Facturas Facturas { get; set; }
     }
 }

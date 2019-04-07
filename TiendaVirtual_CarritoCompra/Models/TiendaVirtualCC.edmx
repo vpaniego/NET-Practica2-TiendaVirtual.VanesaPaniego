@@ -41,7 +41,7 @@
     <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PathImagen" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PrecioUnidad" Type="decimal" Nullable="false" DefaultValue="0" Precision="18" Scale="0" />
-    <Property Name="Cantidad" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
     <Property Name="Categoria_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Pedidos">
@@ -148,7 +148,7 @@
           <Property Name="PathImagen" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Categoria" Relationship="TiendaVirtualCCModel.CategoriasProductos" FromRole="Productos" ToRole="Categorias" />
           <Property Name="PrecioUnidad" Type="Decimal" Nullable="false" DefaultValue="0" Precision="18" Scale="0" />
-          <Property Name="Cantidad" Type="String" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Stock" Relationship="TiendaVirtualCCModel.StockProductos" FromRole="Productos" ToRole="Stock" />
         </EntityType>
         <Association Name="CategoriasProductos">
