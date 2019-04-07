@@ -17,7 +17,19 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         // GET: Pedidos
         public ActionResult Index()
         {
-            return View(db.Pedidos.ToList());
+            string userId = HttpContext.Session["KEY_USER_ID"].ToString();
+
+            List<Pedidos> pedidos = db.Pedidos.ToList();
+            List<Pedidos> pedidoByUserId = new List<Pedidos>();
+            foreach(Pedidos pedido in pedidos)
+            {
+                if (pedido.UsuarioId.Equals(userId))
+                {
+                    pedidoByUserId.Add(pedido);
+                }
+            }
+            //return View(db.Pedidos.ToList());
+            return View(pedidoByUserId);
         }
 
         // GET: Pedidos/Tramitar
@@ -69,28 +81,6 @@ namespace TiendaVirtual_CarritoCompra.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Pedidos/Continue/5
-        public ActionResult Continue(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Pedidos pedidos = db.Pedidos.Find(id);
-            if (pedidos == null)
-            {
-                return HttpNotFound();
-            }
-            Facturas factura = new Facturas {
-                Importe = pedidos.Total,
-                UsuarioId = pedidos.UsuarioId,
-                Pedido = pedidos
-            };
-            pedidos.Facturas = factura;
-            db.SaveChanges();
-            return View(pedidos);
-        }
-
         private decimal SumaTotalProductosCarrito(List<CarritoCompra> carritoCompra)
         {            
             decimal totalSuma = 0;            
@@ -99,14 +89,6 @@ namespace TiendaVirtual_CarritoCompra.Controllers
                 totalSuma = totalSuma + carritoCompra[i].PrecioTotal;
             }
             return totalSuma;
-        }
-
-        private Facturas GenerarFacura(decimal importe, string userId)
-        {
-            return new Facturas {
-                Importe = importe,
-                UsuarioId = userId
-            };
         }
 
         protected override void Dispose(bool disposing)
