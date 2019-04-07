@@ -49,7 +49,7 @@
                     @Html.DisplayFor(modelItem => item.PrecioTotal)
                 </td>                
                 <td>
-                    @Html.ActionLink("Detalle", "Details", new { id = item.Productos.Id })
+                    @Html.ActionLink("Detalle", "Details", new { id = item.Productos.Id }) |
                     @Html.ActionLink("Eliminar", "Delete", new { id = item.Productos.Id }) |
                     @Html.ActionLink("Volver a la Lista", "Index", "Productos")
                 </td>

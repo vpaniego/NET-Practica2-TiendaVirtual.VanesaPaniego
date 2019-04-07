@@ -18,18 +18,22 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         public ActionResult Index()
         {
             string userId = HttpContext.Session["KEY_USER_ID"].ToString();
+            var query = from p in db.Pedidos
+                            where p.UsuarioId == userId
+                            && p.Facturas == null
+                            select p;
 
-            List<Pedidos> pedidos = db.Pedidos.ToList();
-            List<Pedidos> pedidoByUserId = new List<Pedidos>();
-            foreach(Pedidos pedido in pedidos)
+            List<Pedidos> pedidos = new List<Pedidos> {
+                query.FirstOrDefault<Pedidos>()
+            };
+
+            if(pedidos!=null && !pedidos.Contains(null))
             {
-                if (pedido.UsuarioId.Equals(userId))
-                {
-                    pedidoByUserId.Add(pedido);
-                }
-            }
-            //return View(db.Pedidos.ToList());
-            return View(pedidoByUserId);
+                return View(pedidos);
+            } else
+            {
+                return View(new List<Pedidos>());
+            }            
         }
 
         // GET: Pedidos/Tramitar

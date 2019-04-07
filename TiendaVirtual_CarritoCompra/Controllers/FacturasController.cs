@@ -17,7 +17,19 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         // GET: Facturas
         public ActionResult Index()
         {
-            return View(db.Facturas.ToList());
+            string userId = HttpContext.Session["KEY_USER_ID"].ToString();
+
+            var query = from fc in db.Facturas
+                        where fc.UsuarioId == userId
+                        select fc;
+
+            List<Facturas> facturas = new List<Facturas> {
+                query.FirstOrDefault<Facturas>()
+            };
+
+            HttpContext.Session["CARRITO"] = null;
+
+            return View(facturas);
         }
 
         // GET: Facturas/GenerateBill/5
