@@ -15,15 +15,16 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         private TiendaVirtualCCEntities db = new TiendaVirtualCCEntities();
 
         // GET: Facturas
-        public ActionResult Index()
+        public ActionResult Index(Pedidos pedido)
         {
             string userId = HttpContext.Session["KEY_USER_ID"].ToString();
 
             var query = from fc in db.Facturas
                         where fc.UsuarioId == userId
+                        && fc.Pedido.Id == pedido.Id
                         select fc;
 
-            List<Facturas> facturas = new List<Facturas> {
+            List < Facturas > facturas = new List<Facturas> {
                 query.FirstOrDefault<Facturas>()
             };
 
@@ -54,7 +55,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
             pedidos.Facturas = factura;
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", pedidos);           
         } 
 
         protected override void Dispose(bool disposing)

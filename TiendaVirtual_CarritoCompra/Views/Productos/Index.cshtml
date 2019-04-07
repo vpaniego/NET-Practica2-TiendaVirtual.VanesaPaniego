@@ -44,16 +44,23 @@
             @Html.DisplayFor(modelItem => item.PrecioUnidad)
         </td>
         <td>
-
-            @if (User.Identity.Name.Equals("admin1@correo.es"))
+            @if (item.Cantidad == 0)
             {
-                @Html.ActionLink("Editar", "Edit", new { id = item.Id })
-                <span>|</span>
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
-                <span>|</span>
+                @Html.Label("No disponible")
             }
-            @Html.ActionLink("Detalle", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Añadir a Carrito", "Add", "Carrito", new { id = item.Id }, null)
+            @if (item.Cantidad > 0)
+            {
+                if (User.Identity.Name.Equals("admin1@correo.es"))
+                {
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id })
+                    <span> |</span>
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                    <span> |</span>
+                }
+                @Html.ActionLink("Detalle", "Details", new { id = item.Id })
+                <span> |</span>
+                @Html.ActionLink("Añadir a Carrito", "Add", "Carrito", new { id = item.Id }, null)
+            }
         </td>
     </tr>
 }
