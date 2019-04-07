@@ -11,10 +11,12 @@ namespace TiendaVirtual_CarritoCompra.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Pedidos
     {
         public int Id { get; set; }
+        [Display(Name = "Cliente")]
         public string UsuarioId { get; set; }
         public System.DateTime Fecha { get; set; }
         public int Cantidad { get; set; }

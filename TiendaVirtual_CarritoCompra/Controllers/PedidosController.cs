@@ -26,21 +26,26 @@ namespace TiendaVirtual_CarritoCompra.Controllers
             List<CarritoCompra> carrito = (List<CarritoCompra>)HttpContext.Session["CARRITO"];
 
             int cantidad = carrito.Count;
-            decimal total = SumaTotalProductosCarrito(carrito);
+            decimal totalProductos = SumaTotalProductosCarrito(carrito);
+            string userId = HttpContext.Session["KEY_USER_ID"].ToString();
 
             Pedidos pedido = new Pedidos
             {
                 Cantidad = cantidad,
                 Fecha = DateTime.Now,
-                Total = ViewBag.TotalProductos,
-
+                Total = totalProductos,
+                UsuarioId = userId,
+                Facturas = GenerarFacura(totalProductos, userId)
             };
+
+            db.Pedidos.Add(pedido);
+            db.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
-        // GET: Pedidos/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: Pedidos/Cancel/5
+        public ActionResult Cancel(int? id)
         {
             if (id == null)
             {
@@ -54,12 +59,14 @@ namespace TiendaVirtual_CarritoCompra.Controllers
             return View(pedidos);
         }
 
-        // POST: Pedidos/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: Pedidos/Cancel/5
+        [HttpPost, ActionName("Cancel")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
+        public ActionResult CancelConfirmed(int id)
+        {            
             Pedidos pedidos = db.Pedidos.Find(id);
+            Facturas facturas = db.Facturas.Find(pedidos.Facturas.Id);
+            db.Facturas.Remove(facturas);
             db.Pedidos.Remove(pedidos);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -74,6 +81,15 @@ namespace TiendaVirtual_CarritoCompra.Controllers
             }
             return totalSuma;
         }
+
+        private Facturas GenerarFacura(decimal importe, string userId)
+        {
+            return new Facturas {
+                Importe = importe,
+                UsuarioId = userId
+            };
+        }
+
 
         protected override void Dispose(bool disposing)
         {
