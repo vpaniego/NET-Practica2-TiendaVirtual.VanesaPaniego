@@ -56,7 +56,7 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Users = "admin1@correo.es")]
-        public ActionResult Create([Bind(Include = "Id,Nombre,Descripcion,PathImagen,PrecioUnidad,SelectedIdCategoria")] Productos productos)
+        public ActionResult Create([Bind(Include = "Id,Nombre,Descripcion,PathImagen,PrecioUnidad,SelectedIdCategoria,Cantidad")] Productos productos)
         {
             if (ModelState.IsValid)
             {
@@ -112,15 +112,15 @@ namespace TiendaVirtual_CarritoCompra.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Users = "admin1@correo.es")]
-        public ActionResult Edit([Bind(Include = "Id,Nombre,Descripcion,PathImagen,PrecioUnidad")] Productos productos)
+        public ActionResult Edit([Bind(Include = "Id,Nombre,Descripcion,PrecioUnidad,Cantidad")] Productos productos)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(productos).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(productos);
+            Productos producto = db.Productos.Find(productos.Id);
+            producto.Nombre = productos.Nombre;
+            producto.Descripcion = productos.Descripcion;
+            producto.PrecioUnidad = productos.PrecioUnidad;
+            producto.Cantidad = productos.Cantidad;
+            db.SaveChanges();
+            return RedirectToAction("Index");     
         }
 
         // GET: Productos/Delete/5

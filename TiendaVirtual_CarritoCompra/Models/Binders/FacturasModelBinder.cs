@@ -6,19 +6,20 @@ using System.Web.Mvc;
 
 namespace TiendaVirtual_CarritoCompra.Models.Binders
 {
-    public class CarritoModelBinder : IModelBinder
+    public class FacturasModelBinder : IModelBinder
     {
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             HttpSessionStateBase session = controllerContext.HttpContext.Session;
-            CarritoCompra carrito = (CarritoCompra)session["KEY_CARRITO"];
-            if (carrito == null)
+            Facturas factura = (Facturas)session["KEY_FACTURA"];
+            if (factura == null)
             {
-                carrito = new CarritoCompra();
-                session["KEY_CARRITO"] = carrito;
+                factura = new Facturas();
+                session["KEY_FACTURA"] = factura;
             }
 
-            return carrito;
+            return factura;
+
         }
     }
 }

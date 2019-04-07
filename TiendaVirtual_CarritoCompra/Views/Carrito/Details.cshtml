@@ -1,4 +1,4 @@
-﻿@model TiendaVirtual_CarritoCompra.Models.Carrito
+﻿@model TiendaVirtual_CarritoCompra.Models.CarritoCompra
 
 @{
     ViewBag.Title = "Detalle";
@@ -11,6 +11,30 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.Productos.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Productos.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Productos.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Productos.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Productos.PathImagen)
+        </dt>
+
+        <dd>
+            <img src="@Url.Content("~/Content/Images/" + @Path.GetFileName(@Model.Productos.PathImagen))" width="150" height="150" />
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Cantidad)
         </dt>
 
@@ -19,24 +43,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UsuarioId)
+            @Html.DisplayNameFor(model => model.PrecioTotal)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UsuarioId)
+            @Html.DisplayFor(model => model.PrecioTotal)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FechaAlta)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FechaAlta)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Volver a la Lista", "Index")
+    @Html.ActionLink("Eliminar", "Delete", new { id = Model.Productos.Id }) |
+    @Html.ActionLink("Volver al carrito", "Index")
 </p>

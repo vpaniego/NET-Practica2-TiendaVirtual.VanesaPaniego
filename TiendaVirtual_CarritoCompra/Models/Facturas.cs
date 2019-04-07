@@ -11,15 +11,18 @@ namespace TiendaVirtual_CarritoCompra.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Carrito
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class Facturas
     {
         public int Id { get; set; }
-        public int Cantidad { get; set; }
+
+        [Display(Name = "Cliente")]
         public string UsuarioId { get; set; }
-        public System.DateTime FechaAlta { get; set; }
-        public decimal PrecioTotal { get; set; }
+
+        [DataType(DataType.Currency)]
+        public decimal Importe { get; set; }
     
-        public virtual Productos Productos { get; set; }
+        public virtual Pedidos Pedido { get; set; }
     }
 }

@@ -1,10 +1,8 @@
-﻿@model IEnumerable<TiendaVirtual_CarritoCompra.Models.Carrito>
+﻿@model IEnumerable<TiendaVirtual_CarritoCompra.Models.CarritoCompra>
 
 @{
-                /**/
-
-                ViewBag.Title = "Carrito";
-                var IsCarritoEmpty = Session["CARRITO"] == null;
+    ViewBag.Title = "Carrito";
+    var IsCarritoEmpty = Session["CARRITO"] == null;
 }
 <h2>Su Carrito de la Compra</h2>
 
@@ -15,14 +13,11 @@
 @if (!IsCarritoEmpty)
 {
     <p>
-        @Html.ActionLink("Tramitar Pedido", "Tramitar", "Pedido", null)
+        @Html.ActionLink("Tramitar pedido", "Tramitar", "Pedidos")
     </p>
 
     <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioId)
-            </th>
+        <tr>            
             <th>
                 @Html.DisplayNameFor(model => model.Productos.PathImagen)
             </th>
@@ -34,19 +29,13 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PrecioTotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaAlta)
-            </th>
+            </th>            
             <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UsuarioId)
-                </td>
+            <tr>                
                 <td>
                     <img src="@Url.Content("~/Content/Images/" + @Path.GetFileName(item.Productos.PathImagen))" width="75" height="75" />
                 </td>
@@ -58,11 +47,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PrecioTotal)
-                </td>
+                </td>                
                 <td>
-                    @Html.DisplayFor(modelItem => item.FechaAlta)
-                </td>
-                <td>
+                    @Html.ActionLink("Detalle", "Details", new { id = item.Productos.Id }) |
                     @Html.ActionLink("Eliminar", "Delete", new { id = item.Productos.Id }) |
                     @Html.ActionLink("Volver a la Lista", "Index", "Productos")
                 </td>

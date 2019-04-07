@@ -178,8 +178,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
+    <Compile Include="Controllers\FacturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PedidosController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -187,16 +189,25 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Binders\CarritoModelBinder.cs" />
     <Compile Include="Models\Binders\CategoriasModelBinder.cs" />
+    <Compile Include="Models\Binders\FacturasModelBinder.cs" />
+    <Compile Include="Models\Binders\PedidosModelBinder.cs" />
     <Compile Include="Models\Binders\ProductosModelBinder.cs" />
-    <Compile Include="Models\Carrito.cs">
+    <Compile Include="Models\CarritoCompra.cs" />
+    <Compile Include="Models\Categorias.cs">
       <DependentUpon>TiendaVirtualCC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Categorias.cs">
+    <Compile Include="Models\Facturas.cs">
       <DependentUpon>TiendaVirtualCC.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Pedidos.cs">
+      <DependentUpon>TiendaVirtualCC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Productos.cs">
+      <DependentUpon>TiendaVirtualCC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Stocks.cs">
       <DependentUpon>TiendaVirtualCC.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TiendaVirtualCC.Context.cs">
@@ -333,11 +344,12 @@
     <Content Include="Views\Productos\Details.cshtml" />
     <Content Include="Views\Productos\Edit.cshtml" />
     <Content Include="Views\Productos\Index.cshtml" />
-    <Content Include="Views\Carrito\Create.cshtml" />
     <Content Include="Views\Carrito\Delete.cshtml" />
     <Content Include="Views\Carrito\Details.cshtml" />
-    <Content Include="Views\Carrito\Edit.cshtml" />
     <Content Include="Views\Carrito\Index.cshtml" />
+    <Content Include="Views\Pedidos\Cancel.cshtml" />
+    <Content Include="Views\Pedidos\Index.cshtml" />
+    <Content Include="Views\Facturas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
